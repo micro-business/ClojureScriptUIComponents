@@ -1,0 +1,10 @@
+language: clojure
+
+lein: 2.7.1
+
+services:
+ - docker
+ 
+script:
+  - lein cljsbuild once test
+  - lein deploy
