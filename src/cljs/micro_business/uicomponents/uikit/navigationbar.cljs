@@ -2,7 +2,7 @@
   (:require
    [om.next :as om :refer-macros [defui]]
    [om.dom :as dom]
-   [micro-business.uicomponents.uikit.navigationbar :as navigationbar]))
+   [micro-business.uicomponents.uikit.navigationitem :as navigationitem]))
 
 (def getNavbarStyle #js {:className "uk-navbar"})
 (def getNavbarBrandStyle #js {:className "uk-navbar-brand" :href "#"})
@@ -11,12 +11,12 @@
 (defn getNavbar [{:keys [brand navigationItems]}]
   (apply dom/nav getNavbarStyle [(dom/a getNavbarBrandStyle brand)
                                  (dom/ul getNavbarNavStyle
-                                         (map navigationbar/navItem navigationItems))]))
+                                         (map navigationitem/navItem navigationItems))]))
 
 (defui Navbar
   static om/IQuery
   (query [this]
-         (let [navItemSubquery (om/get-query navigationbar/NavItem)]
+         (let [navItemSubquery (om/get-query navigationitem/NavItem)]
            `[:brand {:navigationitems ~navItemSubquery}]))
   Object
   (render [this]
