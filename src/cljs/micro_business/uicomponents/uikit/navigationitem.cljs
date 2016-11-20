@@ -16,9 +16,6 @@
    (dom/a (getNavItemLinkStyle {:href href}) caption)))
 
 (defui NavItem
-  static om/Ident
-  (ident [this {:keys [id]}]
-         [:item/by-id id])
   static om/IQuery
   (query [this]
          '[:caption :href])
