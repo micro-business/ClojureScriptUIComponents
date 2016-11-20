@@ -4,22 +4,24 @@
    [om.dom :as dom]
    [micro-business.uicomponents.uikit.navigationitem :as navigationitem]))
 
-(def getNavbarStyle #js {:className "uk-navbar"})
-(def getNavbarFlipStyle #js {:className "uk-navbar-flip"})
-(def getNavbarBrandStyle #js {:className "uk-navbar-brand" :href "#"})
-(def getNavbarNavStyle #js {:className "uk-navbar-nav"})
-
-(defn getNavigationItems [navigationItems]
-  (dom/ul getNavbarNavStyle
-          (map navigationitem/navItem navigationItems)))
+(defn- getNavigationItems [navigationItems]
+  (let [navbarNavStyle #js {:className "uk-navbar-nav uk-hidden-small"}]
+    (dom/ul navbarNavStyle
+            (map navigationitem/navItem navigationItems))))
 
 (defn getNavbar [{:keys [brand rightToLeftAlignment navigationItems]}]
-  (if rightToLeftAlignment
-    (apply dom/nav getNavbarStyle [(dom/a getNavbarBrandStyle brand)
-                                   (getNavigationItems navigationItems)])
-    (apply dom/nav getNavbarStyle [(dom/a getNavbarBrandStyle brand)
-                                   (dom/div getNavbarFlipStyle
-                                            (getNavigationItems navigationItems))])))
+  (let [navbarStyle #js {:className "uk-navbar uk-margin-large-bottom"}
+        navbarFlipStyle #js {:className "uk-navbar-flip"}
+        navbarBrandStyle #js {:className "uk-navbar-brand uk-hidden-small" :href "#"}
+        getNavbarOffCanvasStyle #js {:className "uk-navbar-toggle uk-visible-small" :href "#offcanvas" :data-uk-offcanvas ""}
+        navbarBrandForSmallDeviceStyle #js {:className "uk-navbar-brand uk-navbar-center uk-visible-small" :href "#"}]
+    (apply dom/nav navbarStyle [(dom/a navbarBrandStyle brand)
+                                (if rightToLeftAlignment
+                                  (getNavigationItems navigationItems))
+                                (dom/div navbarFlipStyle
+                                         (getNavigationItems navigationItems))
+                                (dom/a getNavbarOffCanvasStyle)
+                                (dom/a navbarBrandForSmallDeviceStyle brand)])))
 
 (defui Navbar
   static om/IQuery

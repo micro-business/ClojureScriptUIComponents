@@ -1,7 +1,7 @@
 (ns micro-business.state)
 
 (def applicationGlobalState
-  {:navigationBar {:brand "Navigation Bar Brand"
+  {:navigationBar {:brand "Brand"
                    :rightToLeftAlignment false
                    :navigationItems [{:caption "Item1" :href "#item1"}
                                      {:caption "Item2" :href "#item2"}

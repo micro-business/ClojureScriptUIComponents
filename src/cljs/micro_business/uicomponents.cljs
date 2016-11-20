@@ -9,8 +9,6 @@
 
 (enable-console-print!)
 
-(def getRootViewStyle #js {:className "uk-container uk-container-center uk-margin-top"})
-
 (defui NavbarRootView
   static om/IQuery
   (query [this]
@@ -18,8 +16,9 @@
            `[{:navigationBar ~navbarSubquery}]))
   Object
   (render [this]
-          (let [{:keys [navigationBar]} (om/props this)]
-            (apply dom/div getRootViewStyle [(navigationbar/navbar navigationBar)]))))
+          (let [{:keys [navigationBar]} (om/props this)
+                rootViewStyle #js {:className "uk-container uk-container-center uk-margin-top"}]
+            (apply dom/div rootViewStyle [(navigationbar/navbar navigationBar)]))))
 
 (def navbarRootViewReconciler
   (om/reconciler
