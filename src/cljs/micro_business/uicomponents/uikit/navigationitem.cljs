@@ -11,9 +11,8 @@
       (if-let [onClickedDispatchKeyValue onClickedDispatchKey]
         #js {:onClick
              (fn [e]
-               (println props)
                (om/transact! this
-                             '[(item1/clicked)]))}
+                             '[(~onClickedDispatchKeyValue)]))}
         (if-let [hrefValue href]
           #js {:href hrefValue}
           #js {})) caption))))

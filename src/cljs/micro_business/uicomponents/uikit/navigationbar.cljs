@@ -41,10 +41,8 @@
 
   Object
   (render [this]
-          (let [{:keys [id brand rightToLeftAlignment navigationItems]} (om/props this)
+          (let [{:keys [brand rightToLeftAlignment navigationItems]} (om/props this)
                 navbarStyle #js {:className "uk-navbar uk-margin-large-bottom"}]
-            (println (om/props this))
-            (println id)
             (apply dom/nav navbarStyle [(getNavbar {:brand brand
                                                     :rightToLeftAlignment rightToLeftAlignment
                                                     :navigationItems navigationItems})
