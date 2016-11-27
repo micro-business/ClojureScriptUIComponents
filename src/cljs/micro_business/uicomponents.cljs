@@ -5,6 +5,7 @@
    [om.dom :as dom]
    [micro-business.state :as state]
    [micro-business.reader :as reader]
+   [micro-business.mutate :as mutate]
    [micro-business.uicomponents.uikit.navigationbar :as navigationbar]))
 
 (enable-console-print!)
@@ -18,12 +19,14 @@
   (render [this]
           (let [{:keys [navigationBar]} (om/props this)
                 rootViewStyle #js {:className "uk-container uk-container-center uk-margin-top"}]
-            (apply dom/div rootViewStyle [(navigationbar/navbar navigationBar)]))))
+            (dom/div
+             rootViewStyle
+             (navigationbar/navbar navigationBar)))))
 
 (def navbarRootViewReconciler
   (om/reconciler
    {:state state/applicationGlobalState
-    :parser (om/parser {:read reader/read})}))
+    :parser (om/parser {:read reader/read :mutate mutate/mutate})}))
 
 (defn ^:export renderNavbarRootView [elementName]
   (om/add-root! navbarRootViewReconciler

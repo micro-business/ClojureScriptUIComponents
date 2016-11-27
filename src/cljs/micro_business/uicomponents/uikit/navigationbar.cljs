@@ -38,12 +38,13 @@
   (query [this]
          (let [navItemSubquery (om/get-query navigationitem/NavItem)]
            `[:brand :rightToLeftAlignment {:navigationitems ~navItemSubquery}]))
+
   Object
   (render [this]
-          (let [navbarStyle #js {:className "uk-navbar uk-margin-large-bottom"}
-                brand (-> this om/props :brand)
-                rightToLeftAlignment (-> this om/props :rightToLeftAlignment)
-                navigationItems (-> this om/props :navigationItems)]
+          (let [{:keys [id brand rightToLeftAlignment navigationItems]} (om/props this)
+                navbarStyle #js {:className "uk-navbar uk-margin-large-bottom"}]
+            (println (om/props this))
+            (println id)
             (apply dom/nav navbarStyle [(getNavbar {:brand brand
                                                     :rightToLeftAlignment rightToLeftAlignment
                                                     :navigationItems navigationItems})
