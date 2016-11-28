@@ -12,7 +12,7 @@
         #js {:onClick
              (fn [e]
                (om/transact! this
-                             '[(~onClickedDispatchKeyValue)]))}
+                             `[(~onClickedDispatchKeyValue ~props)]))}
         (if-let [hrefValue href]
           #js {:href hrefValue}
           #js {})) caption))))

@@ -6,18 +6,15 @@
 
 (defmethod mutate 'item1/clicked
   [{:keys [state]} _ {:keys [name]}]
-  (println "Test 1")
   {:action
-   nil})
+   (fn [] (println "Test 1"))})
 
 (defmethod mutate 'item2/clicked
   [{:keys [state]} _ {:keys [name]}]
-  (println "Test 2")
   {:action
-   nil})
+   (fn [] (println "Test 2"))})
 
 (defmethod mutate 'item5/clicked
   [{:keys [state]} _ {:keys [name]}]
-  (println "Test 5")
   {:action
-   nil})
+   (fn [] (println "Test 5"))})
