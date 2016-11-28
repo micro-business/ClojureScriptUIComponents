@@ -20,7 +20,7 @@
 (defui NavItem
   static om/IQuery
   (query [this]
-         '[:caption :onClickedDispatchKey :href])
+         `[:caption :onClickedDispatchKey :href])
 
   Object
   (render [this]
