@@ -1,8 +1,7 @@
 (ns micro-business.state)
 
 (def applicationGlobalState
-  {:navigationBar {:id "topNavigationBar"
-                   :brand "Brand"
+  {:navigationBar {:brand "Brand"
                    :rightToLeftAlignment false
                    :navigationItems [{:id "item1" :caption "Item1" :onClickedDispatchKey 'item1/clicked}
                                      {:id "item2" :caption "Item2" :onClickedDispatchKey 'item2/clicked}
