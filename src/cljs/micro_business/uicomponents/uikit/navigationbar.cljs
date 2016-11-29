@@ -9,10 +9,10 @@
     (dom/ul navbarNavStyle
             (map navigationitem/navItem navigationItems))))
 
-(defn- getNavbar [{:keys [brand rightToLeftAlignment navigationItems]}]
+(defn- getNavbar [{:keys [id brand rightToLeftAlignment navigationItems]}]
   (let [navbarFlipStyle #js {:className "uk-navbar-flip"}
         navbarBrandStyle #js {:className "uk-navbar-brand uk-hidden-small" :href "#"}
-        navbarOffCanvasStyle #js {:className "uk-navbar-toggle uk-visible-small" :href "#offcanvas" :data-uk-offcanvas ""}
+        navbarOffCanvasStyle #js {:className "uk-navbar-toggle uk-visible-small" :href (str "#offcanvas-" id) :data-uk-offcanvas ""}
         navbarBrandForSmallDeviceStyle #js {:className "uk-navbar-brand uk-navbar-center uk-visible-small"}]
     (dom/div nil [(dom/a navbarBrandStyle brand)
                   (if rightToLeftAlignment
@@ -27,26 +27,32 @@
     (dom/ul navbarNavStyle
             (map navigationitem/navItem navigationItems))))
 
-(defn- getOffCanvasNavbar [{:keys [brand rightToLeftAlignment navigationItems]}]
-  (let [offCanvasDivStyle #js {:className "uk-offcanvas" :id "offcanvas"}
+(defn- getOffCanvasNavbar [{:keys [id brand rightToLeftAlignment navigationItems]}]
+  (let [offCanvasDivStyle #js {:className "uk-offcanvas" :id (str "offcanvas-" id)}
         offcanvasDivBarStyle #js {:className "uk-offcanvas-bar"}]
     (dom/div offCanvasDivStyle (dom/div offcanvasDivBarStyle
                                         (getOffCanvasNavigationItems navigationItems)))))
 
 (defui Navbar
+  static om/Ident
+  (ident [this {:keys [id]}]
+         [:navbar/by-id id])
+
   static om/IQuery
   (query [this]
          (let [navItemSubquery (om/get-query navigationitem/NavItem)]
-           `[:brand :rightToLeftAlignment {:navigationitems ~navItemSubquery}]))
+           `[:id :brand :rightToLeftAlignment {:navigationitems ~navItemSubquery}]))
 
   Object
   (render [this]
-          (let [{:keys [brand rightToLeftAlignment navigationItems]} (om/props this)
+          (let [{:keys [id brand rightToLeftAlignment navigationItems]} (om/props this)
                 navbarStyle #js {:className "uk-navbar uk-margin-large-bottom"}]
-            (apply dom/nav navbarStyle [(getNavbar {:brand brand
+            (apply dom/nav navbarStyle [(getNavbar {:id id
+                                                    :brand brand
                                                     :rightToLeftAlignment rightToLeftAlignment
                                                     :navigationItems navigationItems})
-                                        (getOffCanvasNavbar {:brand brand
+                                        (getOffCanvasNavbar {:id id
+                                                             :brand brand
                                                              :rightToLeftAlignment rightToLeftAlignment
                                                              :navigationItems navigationItems})]))))
 

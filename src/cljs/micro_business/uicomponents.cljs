@@ -14,14 +14,14 @@
   static om/IQuery
   (query [this]
          (let [navbarSubquery (om/get-query navigationbar/Navbar)]
-           `[{:navigationBar ~navbarSubquery}]))
+           `[{:navigationBars ~navbarSubquery}]))
   Object
   (render [this]
-          (let [{:keys [navigationBar]} (om/props this)
+          (let [{:keys [navigationBars]} (om/props this)
                 rootViewStyle #js {:className "uk-container uk-container-center uk-margin-top"}]
             (dom/div
              rootViewStyle
-             (navigationbar/navbar navigationBar)))))
+             (map navigationbar/navbar navigationBars)))))
 
 (def navbarRootViewReconciler
   (om/reconciler
