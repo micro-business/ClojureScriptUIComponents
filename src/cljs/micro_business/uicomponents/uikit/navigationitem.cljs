@@ -3,16 +3,15 @@
    [om.next :as om :refer-macros [defui]]
    [om.dom :as dom]))
 
-(defn- getNavItem [this props {:keys [caption onClickedDispatchKey href]}]
+(defn- getNavItem [this props {:keys [caption onClickedQueryExpression href]}]
   (let [navItemStyle #js {}]
     (dom/li
      navItemStyle
      (dom/a
-      (if-let [onClickedDispatchKeyValue onClickedDispatchKey]
+      (if-let [onClickedQueryExpressionValue onClickedQueryExpression]
         #js {:onClick
              (fn [e]
-               (om/transact! this
-                             `[(~onClickedDispatchKeyValue ~props)]))}
+               (om/transact! this onClickedQueryExpressionValue))}
         (if-let [hrefValue href]
           #js {:href hrefValue}
           #js {})) caption))))
@@ -24,13 +23,13 @@
 
   static om/IQuery
   (query [this]
-         `[:caption :onClickedDispatchKey :href])
+         `[:caption :onClickedQueryExpression :href])
 
   Object
   (render [this]
-          (let [{:keys [caption onClickedDispatchKey href] :as props} (om/props this)]
+          (let [{:keys [caption onClickedQueryExpression href] :as props} (om/props this)]
             (getNavItem this props {:caption caption
-                                    :onClickedDispatchKey onClickedDispatchKey
+                                    :onClickedQueryExpression onClickedQueryExpression
                                     :href href}))))
 
 (def navItem (om/factory NavItem))
