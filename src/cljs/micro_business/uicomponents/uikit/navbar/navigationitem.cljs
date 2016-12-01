@@ -1,4 +1,4 @@
-(ns micro-business.uicomponents.uikit.navigationitem
+(ns micro-business.uicomponents.uikit.navbar.navigationitem
   (:require
    [om.next :as om :refer-macros [defui]]
    [om.dom :as dom]))

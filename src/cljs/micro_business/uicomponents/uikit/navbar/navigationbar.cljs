@@ -1,8 +1,8 @@
-(ns micro-business.uicomponents.uikit.navigationbar
+(ns micro-business.uicomponents.uikit.navbar.navigationbar
   (:require
    [om.next :as om :refer-macros [defui]]
    [om.dom :as dom]
-   [micro-business.uicomponents.uikit.navigationitem :as navigationitem]))
+   [micro-business.uicomponents.uikit.navbar.navigationitem :as navigationitem]))
 
 (defn- getNavigationItems [navigationItems]
   (let [navbarNavStyle #js {:className "uk-navbar-nav uk-hidden-small"}]

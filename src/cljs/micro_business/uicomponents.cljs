@@ -6,7 +6,7 @@
    [micro-business.state :as state]
    [micro-business.reader :as reader]
    [micro-business.mutate :as mutate]
-   [micro-business.uicomponents.uikit.navigationbar :as navigationbar]))
+   [micro-business.uicomponents.uikit.navbar.navigationbar :as navigationbar]))
 
 (enable-console-print!)
 
