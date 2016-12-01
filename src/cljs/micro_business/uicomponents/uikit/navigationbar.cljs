@@ -41,7 +41,7 @@
   static om/IQuery
   (query [this]
          (let [navItemSubquery (om/get-query navigationitem/NavItem)]
-           `[:id :brand :rightToLeftAlignment {:navigationitems ~navItemSubquery}]))
+           `[:id :brand :rightToLeftAlignment {:navigationItems ~navItemSubquery}]))
 
   Object
   (render [this]

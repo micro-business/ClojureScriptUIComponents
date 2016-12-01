@@ -1,6 +1,7 @@
 (ns micro-business.reader
   (:require
-   [om.next :as om :refer-macros [defui]]))
+   [micro-business.uicomponents.uikit.reader :as uikitreader]
+   [om.next :as om]))
 
 (defmulti read om/dispatch)
 
@@ -8,5 +9,5 @@
   [{:keys [state] :as env} key params]
   (let [st @state
         navbarKeys (map #(last %) (st key))
-        navbars (map #(get-in st [:navbar/by-id %]) navbarKeys)]
-    {:value navbars}))
+        updatedNavbars (uikitreader/getNavigationBars st navbarKeys)]
+    {:value updatedNavbars}))
