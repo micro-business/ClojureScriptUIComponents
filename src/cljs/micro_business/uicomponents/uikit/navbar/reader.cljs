@@ -4,8 +4,7 @@
   (let [navbars (map #(get-in state [:navbar/by-id %]) navbarIDs)
         navItems (state :navitem/by-id)
         updatedNavbars (map (fn [navbar]
-                              (let [navItemIDs (map #(last %) (navbar :navigationItems))
-                                    navItemDetails (map #(navItems %) navItemIDs)
+                              (let [navItemDetails (map #(navItems (last %)) (navbar :navigationItems))
                                     newNavbar (assoc-in navbar [:navigationItems] (into [] navItemDetails))]
                                 newNavbar)) navbars)]
     updatedNavbars))
