@@ -19,7 +19,7 @@
 (defui NavItem
   static om/Ident
   (ident [this {:keys [id]}]
-         [:navitem/by-id id])
+         [:navItem/by-id id])
 
   static om/IQuery
   (query [this]
