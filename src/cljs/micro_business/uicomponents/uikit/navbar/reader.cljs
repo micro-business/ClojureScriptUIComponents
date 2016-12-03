@@ -1,10 +1,8 @@
 (ns micro-business.uicomponents.uikit.navbar.reader)
 
-(defn getNavigationBars [state navbarIDs]
-  (let [navbars (map #(get-in state [:navbar/by-id %]) navbarIDs)
-        navItems (state :navitem/by-id)
-        updatedNavbars (map (fn [navbar]
-                              (let [navItemDetails (map #(navItems (last %)) (navbar :navigationItems))
-                                    newNavbar (assoc-in navbar [:navigationItems] (into [] navItemDetails))]
-                                newNavbar)) navbars)]
-    updatedNavbars))
+(defn getNavigationBars [navBars navItems]
+  (let [updatedNavBars (map (fn [navBar]
+                              (let [navItemDetails (map #(navItems (last %)) (navBar :navigationItems))
+                                    newNavBar (assoc-in navBar [:navigationItems] (into [] navItemDetails))]
+                                newNavBar)) navBars)]
+    updatedNavBars))

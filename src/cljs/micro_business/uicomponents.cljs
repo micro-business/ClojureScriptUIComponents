@@ -10,26 +10,26 @@
 
 (enable-console-print!)
 
-(defui NavbarRootView
+(defui NavBarRootView
   static om/IQuery
   (query [this]
-         (let [navbarSubquery (om/get-query navigationbar/Navbar)]
-           `[{:navigationBars ~navbarSubquery}]))
+         (let [navBarSubquery (om/get-query navigationbar/NavBar)]
+           `[{:navigationBars ~navBarSubquery}]))
   Object
   (render [this]
           (let [{:keys [navigationBars]} (om/props this)
                 rootViewStyle #js {:className "uk-container uk-container-center uk-margin-top"}]
             (dom/div
              rootViewStyle
-             (map navigationbar/navbar navigationBars)))))
+             (map navigationbar/navBar navigationBars)))))
 
-(def navbarRootViewReconciler
+(def navBarRootViewReconciler
   (om/reconciler
    {:state state/applicationGlobalState
     :parser (om/parser {:read reader/read :mutate mutate/mutate})}))
 
-(defn ^:export renderNavbarRootView [elementName]
-  (om/add-root! navbarRootViewReconciler
-                NavbarRootView (gdom/getElement elementName)))
+(defn ^:export renderNavBarRootView [elementName]
+  (om/add-root! navBarRootViewReconciler
+                NavBarRootView (gdom/getElement elementName)))
 
-(renderNavbarRootView "navbarView")
+(renderNavBarRootView "navBarView")

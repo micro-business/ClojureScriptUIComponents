@@ -5,38 +5,38 @@
    [micro-business.uicomponents.uikit.navbar.navigationitem :as navigationitem]))
 
 (defn- getNavigationItems [navigationItems]
-  (let [navbarNavStyle #js {:className "uk-navbar-nav uk-hidden-small"}]
-    (dom/ul navbarNavStyle
+  (let [navBarNavStyle #js {:className "uk-navbar-nav uk-hidden-small"}]
+    (dom/ul navBarNavStyle
             (map navigationitem/navItem navigationItems))))
 
-(defn- getNavbar [{:keys [id brand rightToLeftAlignment navigationItems]}]
-  (let [navbarFlipStyle #js {:className "uk-navbar-flip"}
-        navbarBrandStyle #js {:className "uk-navbar-brand uk-hidden-small" :href "#"}
-        navbarOffCanvasStyle #js {:className "uk-navbar-toggle uk-visible-small" :href (str "#offcanvas-" id) :data-uk-offcanvas ""}
-        navbarBrandForSmallDeviceStyle #js {:className "uk-navbar-brand uk-navbar-center uk-visible-small"}]
-    (dom/div nil [(dom/a navbarBrandStyle brand)
+(defn- getNavBar [{:keys [id brand rightToLeftAlignment navigationItems]}]
+  (let [navBarFlipStyle #js {:className "uk-navbar-flip"}
+        navBarBrandStyle #js {:className "uk-navbar-brand uk-hidden-small" :href "#"}
+        navBarOffCanvasStyle #js {:className "uk-navbar-toggle uk-visible-small" :href (str "#offcanvas-" id) :data-uk-offcanvas ""}
+        navBarBrandForSmallDeviceStyle #js {:className "uk-navbar-brand uk-navbar-center uk-visible-small"}]
+    (dom/div nil [(dom/a navBarBrandStyle brand)
                   (if rightToLeftAlignment
                     (getNavigationItems navigationItems))
-                  (dom/div navbarFlipStyle
+                  (dom/div navBarFlipStyle
                            (getNavigationItems navigationItems))
-                  (dom/a navbarOffCanvasStyle)
-                  (dom/div navbarBrandForSmallDeviceStyle brand)])))
+                  (dom/a navBarOffCanvasStyle)
+                  (dom/div navBarBrandForSmallDeviceStyle brand)])))
 
 (defn- getOffCanvasNavigationItems [navigationItems]
-  (let [navbarNavStyle #js {:className "uk-nav uk-nav-offcanvas"}]
-    (dom/ul navbarNavStyle
+  (let [navBarNavStyle #js {:className "uk-nav uk-nav-offcanvas"}]
+    (dom/ul navBarNavStyle
             (map navigationitem/navItem navigationItems))))
 
-(defn- getOffCanvasNavbar [{:keys [id brand rightToLeftAlignment navigationItems]}]
+(defn- getOffCanvasNavBar [{:keys [id brand rightToLeftAlignment navigationItems]}]
   (let [offCanvasDivStyle #js {:className "uk-offcanvas" :id (str "offcanvas-" id)}
         offcanvasDivBarStyle #js {:className "uk-offcanvas-bar"}]
     (dom/div offCanvasDivStyle (dom/div offcanvasDivBarStyle
                                         (getOffCanvasNavigationItems navigationItems)))))
 
-(defui Navbar
+(defui NavBar
   static om/Ident
   (ident [this {:keys [id]}]
-         [:navbar/by-id id])
+         [:navBar/by-id id])
 
   static om/IQuery
   (query [this]
@@ -46,14 +46,14 @@
   Object
   (render [this]
           (let [{:keys [id brand rightToLeftAlignment navigationItems]} (om/props this)
-                navbarStyle #js {:className "uk-navbar uk-margin-large-bottom"}]
-            (apply dom/nav navbarStyle [(getNavbar {:id id
+                navBarStyle #js {:className "uk-navbar uk-margin-large-bottom"}]
+            (apply dom/nav navBarStyle [(getNavBar {:id id
                                                     :brand brand
                                                     :rightToLeftAlignment rightToLeftAlignment
                                                     :navigationItems navigationItems})
-                                        (getOffCanvasNavbar {:id id
+                                        (getOffCanvasNavBar {:id id
                                                              :brand brand
                                                              :rightToLeftAlignment rightToLeftAlignment
                                                              :navigationItems navigationItems})]))))
 
-(def navbar (om/factory Navbar))
+(def navBar (om/factory NavBar))

@@ -8,6 +8,8 @@
 (defmethod read :navigationBars
   [{:keys [state] :as env} key params]
   (let [st @state
-        navbarIDs (map #(last %) (st key))
-        updatedNavbars (navbarreader/getNavigationBars st navbarIDs)]
-    {:value updatedNavbars}))
+        navBarIDs (map #(last %) (st key))
+        navBars (map #(get-in st [:navBar/by-id %]) navBarIDs)
+        navItems (st :navitem/by-id)
+        updatedNavBars (navbarreader/getNavigationBars navBars navItems)]
+    {:value updatedNavBars}))
