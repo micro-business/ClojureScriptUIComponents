@@ -7,4 +7,4 @@
 
 (defmethod read :navigationBars
   [{:keys [state] :as env} key params]
-  {:value (navbarreader/getNavigationBars @state key)})
+  {:value (navbarreader/getNavigationBars @state)})
