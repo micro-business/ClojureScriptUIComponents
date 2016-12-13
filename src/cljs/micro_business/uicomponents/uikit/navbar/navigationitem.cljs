@@ -4,17 +4,19 @@
    [om.dom :as dom]))
 
 (defn- getNavItem [this props {:keys [caption onClickedQueryExpression href]}]
-  (let [navItemStyle #js {}]
-    (dom/li
-     navItemStyle
-     (dom/a
-      (if-let [onClickedQueryExpressionValue onClickedQueryExpression]
-        #js {:onClick
-             (fn [e]
-               (om/transact! this onClickedQueryExpressionValue))}
-        (if-let [hrefValue href]
-          #js {:href hrefValue}
-          #js {})) caption))))
+  (dom/li
+   nil
+   (dom/a
+    (cond (and onClickedQueryExpression href) #js {:onClick
+                                                   (fn [e]
+                                                     (om/transact! this onClickedQueryExpression))
+                                                   :href href}
+          onClickedQueryExpression #js {:onClick
+                                        (fn [e]
+                                          (om/transact! this onClickedQueryExpression))}
+
+          href #js {:href href} :else #js {})
+    caption)))
 
 (defui NavItem
   static om/Ident
